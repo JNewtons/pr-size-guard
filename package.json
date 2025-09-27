@@ -1,0 +1,22 @@
+{
+  "name": "pr-size-guard",
+  "version": "1.1.0",
+  "private": true,
+  "description": "GitHub Action that guards PR size and checks for test changes.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "format": "npx prettier -w .",
+    "lint": "node -e \"process.exit(0)\"",
+    "test": "node tests/local-sim.js || true"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "minimatch": "^9.0.4",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
+}

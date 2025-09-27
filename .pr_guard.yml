@@ -1,0 +1,10 @@
+max_lines: 400
+max_files: 25
+test_paths:
+  - tests
+  - __tests__
+exclude:
+  - "**/package-lock.json"
+  - "**/*.min.js"
+mode: warn
+retries: 2
