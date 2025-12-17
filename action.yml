@@ -1,37 +1,56 @@
 name: PR Size Guard
-description: Guard PR size and require test changes when needed.
+description: Guard PR size and nudge teams to include tests.
 author: JNewtons
+
 branding:
   icon: shield
   color: blue
-runs:
-  using: node20
-  main: dist/index.js
+
 inputs:
+  token:
+    description: GitHub token for API calls. Recommended to pass ${{ github.token }} from the workflow.
+    required: false
+
   max_lines:
     description: Maximum total changed lines allowed in a PR
     required: false
     default: "400"
+
   max_files:
     description: Maximum changed files allowed in a PR
     required: false
     default: "25"
+
   test_paths:
     description: Comma separated list of folders considered tests (e.g. tests,__tests__)
     required: false
     default: "test,tests,__tests__"
+
   exclude:
     description: Comma separated glob patterns to ignore (e.g. **/package-lock.json,**/*.min.js)
     required: false
     default: ""
+
   mode:
     description: warn or fail
     required: false
     default: "warn"
+
   retries:
     description: Number of retries on transient API errors (HTTP 429/5xx)
     required: false
     default: "2"
-permissions:
-  pull-requests: write
-  contents: read
+
+outputs:
+  files_changed:
+    description: Number of considered files
+  lines_changed:
+    description: Total changed lines across considered files
+  tests_touched:
+    description: Whether a test directory was touched
+  verdict:
+    description: pass, warn, or fail
+
+runs:
+  using: node20
+  main: dist/index.js
